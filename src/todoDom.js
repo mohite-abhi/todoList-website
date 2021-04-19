@@ -7,11 +7,15 @@ var createDiv= function(className, innerValue = null){
 }
 
 var addTaskToList = function(taskHtml){
-    document.getElementById("taskList").appendChild(taskHtml);
+    var taskArea =  document.getElementById("taskList")
+    taskArea.appendChild(taskHtml);
 }
 
-var createTaskDom = function(ttl, dsc, dte){
-    var tick = createDiv("tick", "&#9634;")
+var createTaskDom = function(iscmplt, ttl, dsc, dte){
+    // console.log(iscmplt)
+    var symbol = ((iscmplt == true) ? "&#10003;" : "&#9634;")
+    var tick = createDiv("tick", symbol)
+    // var tick = createDiv("tick", "&#9634;")
     var title = createDiv("title", ttl)
     var description = createDiv("description", dsc)
     var dueDate = createDiv("duedate", dte)
@@ -32,5 +36,24 @@ var addProjectToList = function(nme){
 }
 
 
+var createExpandedTaskDom = function(todo){
+    var symbol = ((todo.isComplete == true) ? "&#10003;" : "&#9634;")
+    var tick = createDiv("tick", symbol)
+    var title = createDiv("title", todo.title)
+    var description = createDiv("description", todo.description)
+    var dueDate = createDiv("duedate", todo.dueDate.slice(0,10))
+    var delete1 = createDiv("checklist", "something")
 
-export {createTaskDom, addTaskToList, addProjectToList}
+    var taskItem = createDiv("detailedTaskItem")
+    taskItem.appendChild(tick)
+    taskItem.appendChild(title)
+    taskItem.appendChild(description)
+    taskItem.appendChild(dueDate)
+    taskItem.appendChild(delete1)
+    return taskItem
+}
+
+
+
+
+export {createTaskDom, addTaskToList, addProjectToList, createExpandedTaskDom}

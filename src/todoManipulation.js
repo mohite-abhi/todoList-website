@@ -23,14 +23,14 @@ var Checklist = function (taskList = []) {
 
 }
 
-var ToDoList = function (title, description, dueDate, priority, checkList) {
+var ToDoList = function (title, description, dueDate, priority, checkList, isComplete=false) {
     var task = {};
     task.title = title;
     task.description = description;
     task.dueDate = dueDate;
     task.priority = priority;
     task.checkList = checkList;
-    task.isComplete = false;
+    task.isComplete = isComplete;
     return task;
 }
 
@@ -47,7 +47,7 @@ var ToDoProject = function (projName, listOfToDoList = []) {
 var User = function (userName = "anonymous") {
     var user = {}
     user.name = userName;
-    user.projects = [new ToDoProject("default", [ToDoList("Getting started", "have fun", new Date(), 1, Checklist(["item 1", "item 2"]))])];
+    user.projects = [new ToDoProject("default", [ToDoList("Getting started", "have fun", new Date(), 1, Checklist(["item 1", "item 2"])), ToDoList("Again getting started", "have fun again", new Date(), 1, Checklist(["item 3", "item 4"]))])];
     user.createNewProject = function (projName) {
         tempProj = ToDoProject(projName);
         user.projects.push(tempProj);
@@ -68,13 +68,14 @@ var Session = (function () {
         session.pushUpdate();
     }
     else{
+        // console.log(localStorage.user)
         var userData = JSON.parse(localStorage.user);
         var userObject = new User(userData.name)
         userObject.removeProject(0)
         userData.projects.forEach((i) => {
             var tempProject = new ToDoProject(i.name)
             i.toDoLists.forEach((j) => {
-                tempProject.addToProject(new ToDoList(j.title, j.description, j.dueDate, j.priority, new Checklist(j.checkList.tasks))) 
+                tempProject.addToProject(new ToDoList(j.title, j.description, j.dueDate, j.priority, new Checklist(j.checkList.tasks),j.isComplete)) 
             })
             userObject.projects.push(tempProject);
         })
