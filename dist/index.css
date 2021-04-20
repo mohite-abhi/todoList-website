@@ -97,12 +97,26 @@
 }
 
 .projectItem{
+    display: grid;
+    grid-template-columns: 95% 5%;
+    grid-template-rows: auto;
+    grid-template-areas: 
+      "name del";
     font-size: 3vh;
     background-color:darkred;
     margin: 5px 1px;
-    height: max-content;
+    /* height: max-content; */
 }
 
+.projectItem .name{
+    grid-area: name;
+    background-color:darkslategray;
+}
+
+.projectItem .del{
+    grid-area: del;
+    background-color: rgb(98, 206, 98);
+}
 
 
 #tasks{

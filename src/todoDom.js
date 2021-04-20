@@ -30,9 +30,18 @@ var createTaskDom = function(iscmplt, ttl, dsc, dte){
 }
 
 
-var addProjectToList = function(nme){
-    var name = createDiv("projectItem", nme);
-    document.getElementById("list").appendChild(name);
+var createProjectDom = function(nme){
+    var name = createDiv("name", nme);
+    var del = createDiv("del", nme);
+    del.innerHTML = "x"
+    name.innerHTML = nme
+    var projRow = createDiv("projectItem")
+    // name.onclick = ()=>{console.log(this)}
+    // document.getElementById("list").appendChild(name);
+    projRow.appendChild(name)
+    projRow.appendChild(del)
+    // console.log(projRow)
+    return projRow;
 }
 
 
@@ -83,4 +92,4 @@ var createExpandedTaskDom = function(todo){
 
 
 
-export {createTaskDom, addTaskToList, addProjectToList, createExpandedTaskDom}
+export {createTaskDom, addTaskToList, createProjectDom, createExpandedTaskDom}

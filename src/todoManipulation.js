@@ -50,7 +50,7 @@ var ToDoProject = function (projName, listOfToDoList = []) {
 var User = function (userName = "anonymous") {
     var user = {}
     user.name = userName;
-    user.projects = [new ToDoProject("default", [ToDoList("Getting started", "have fun", JSON.stringify(new Date()).slice(1,11), 1, Checklist(["item 1", "item 2"])), ToDoList("Again getting started", "have fun again", JSON.stringify(new Date()).slice(1,11), 1, Checklist(["item 3", "item 4"]))])];
+    user.projects = [new ToDoProject("default", [ToDoList("Getting started", "have fun", JSON.stringify(new Date()).slice(1,11), 1, Checklist(["item 1", "item 2"])), ToDoList("Again getting started", "have fun again", JSON.stringify(new Date()).slice(1,11), 1, Checklist(["item 3", "item 4"]))]), new ToDoProject("default2", [ToDoList("Getting started2", "have fun2", JSON.stringify(new Date()).slice(1,11), 1, Checklist(["item 12", "item 22"])), ToDoList("Again getting started2", "have fun again2", JSON.stringify(new Date()).slice(1,11), 1, Checklist(["item 32", "item 42"]))])];
     user.createNewProject = function (projName) {
         tempProj = ToDoProject(projName);
         user.projects.push(tempProj);
@@ -75,6 +75,7 @@ var Session = (function () {
             // console.log(localStorage.user)
             var userData = JSON.parse(localStorage.user);
             var userObject = new User(userData.name)
+            userObject.removeProject(0)
             userObject.removeProject(0)
             userData.projects.forEach((i) => {
                 var tempProject = new ToDoProject(i.name)
