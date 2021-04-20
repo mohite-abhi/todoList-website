@@ -1,5 +1,5 @@
 import { Session, ToDoProject, ToDoList, Checklist} from "./todoManipulation"
-import { createTaskDom, addTaskToList, createProjectDom, createExpandedTaskDom, createProjInputDom, createTaskInputDom } from './todoDom'
+import { createTaskDom, addTaskToList, createProjectDom, createExpandedTaskDom, createProjInputDom, createTaskInputDom, createUserInput } from './todoDom'
 
 var completeFunction = function () {
     var elem = document.getElementById(this.parentNode.id).childNodes[0]
@@ -262,9 +262,26 @@ var renderProjects = function (number) {
     renderTasks(number);
 }
 
+var manageUser = function(){
+    var userElement = document.getElementById("username")
+    var inp = createUserInput()
+    inp.id = "username"
+    inp.childNodes[1].onclick = ()=>{
+        Session.user.name = inp.childNodes[0].value
+        Session.pushUpdate()
+        location.reload()
+    }
+    userElement.parentElement.replaceChild(inp, userElement)
+
+}
 
 var renderPage = function () {
+
+    
     Session.initiatePage()
+    var userElement = document.getElementById("username")
+    userElement.innerHTML = Session.user.name
+    userElement.onclick = manageUser
     renderProjects(0);
 }
 

@@ -168,5 +168,15 @@ var createTaskInputDom = function() {
 }
 
 
+var createUserInput = function(){
+    var inp = createInput("name", 20, "enter name")
+    var ok = createDiv("ok", "&#10009;")
+    var usnm = createDiv("username")
+    usnm.appendChild(inp)
+    usnm.appendChild(ok)
+    return usnm
+}
 
-export {createTaskDom, addTaskToList, createProjectDom, createExpandedTaskDom, createProjInputDom, createTaskInputDom}
+
+
+export {createTaskDom, addTaskToList, createProjectDom, createExpandedTaskDom, createProjInputDom, createTaskInputDom, createUserInput}

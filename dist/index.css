@@ -43,12 +43,25 @@
 
 #username{
     /* justify-self: center; */
+    display: grid;
+    grid-template-columns: 90% 10%;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "nme ok";
     align-self: center;
     grid-area: username;
-    height: max-content;
+    height: 3vh;
     margin: 2px;
     background-color: darkcyan;
-    text-align:end;
+    text-align:center;
+}
+
+#username .name{
+    grid-area: nme;
+}
+
+#username .ok{
+    grid-area: ok;
 }
 
 #footer{
@@ -247,7 +260,7 @@
     column-gap: 1%; */
     grid-template-areas: 
       "tick title title duedate duedate"
-      ". description description description ."
+      ". description description description edit"
       "plus checklist checklist checklist save";
     font-size: 3vh;
     background-color:rgb(139, 130, 0);
@@ -258,6 +271,17 @@
 
 .detailedTaskItem .saveTask{
     grid-area: save;
+    /* height: fit-content; */
+    /* font-size: 3vh; */
+    background-color: dimgray;
+    margin: 2px;
+    align-self: center;
+    text-align: center;
+    /* text-align: center; */
+}
+
+.detailedTaskItem .editButton{
+    grid-area: edit;
     /* height: fit-content; */
     /* font-size: 3vh; */
     background-color: dimgray;
