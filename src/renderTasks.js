@@ -96,27 +96,32 @@ var renderProjects = function () {
     
     var openProject = (ele) =>{
         var projNo = JSON.parse(ele.srcElement.parentNode.id);
-        // console.log(projNo)
+        // console.log(ele)
         var taskArea = document.getElementById("taskList")
         taskArea.innerHTML = '';
         renderTasks(projNo)
-        // console.log(event.srcElement.parentNode.id)
-        // console.log(Session.user.projects[this.id]);
+    }
+
+    var deleteProject = function () {
+        var coor = JSON.parse(this.parentNode.id)
+        // console.log(Session.user.projects[coor[0]])
+        Session.user.projects.splice([coor[0]], 1)
+        Session.pushUpdate()
+        document.getElementById("taskList").innerHTML = ''
+        document.getElementById("list").innerHTML = ''
+        renderPage()
+
+        // document.getElementById(this.parentNode.id).remove()
+        // Session.pushUpdate()
     }
 
     projects.forEach(element => {
         var projectHtml = createProjectDom(element.name);
         projectHtml.id = JSON.stringify([i++])
         document.getElementById("list").appendChild(projectHtml);
-        projectHtml.onclick = openProject
-        // projectHtml.addEventListener("click", openProject(this));
-        // projectHtml.childNodes[0].onclick = openProject
-        // console.log(projectHtml.childNodes[0].parentNode)
-        // proj.childNodes[0].onclick = ()=>{console.log(this.parentNode.id)}
-        // proj.childNodes[0].onclick = ()=>{console.log("hel")}
-        // proj.childNodes[0].onclick = () =>{console.log("hello")}
-        // console.log(proj.childNodes[0].)
-        // addProjectToList(element.name);
+        projectHtml.childNodes[0].onclick = openProject
+        projectHtml.childNodes[1].onclick = deleteProject
+        // console.log(projectHtml.onclick)
     });
 }
 
