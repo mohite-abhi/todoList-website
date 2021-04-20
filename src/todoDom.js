@@ -129,6 +129,17 @@ var createProjInputDom = function() {
 }
 
 
+var addItemToChecklist = function(checklistInput, value = null){
+    var checklistinputitem = createDiv("checklistinputitem")
+    var newTick = createDiv("tick2")
+    var itemDetail = createInput("detail2", 100, "add task")
+    if (value != null)
+        itemDetail.value = value
+    checklistinputitem.appendChild(newTick)
+    checklistinputitem.appendChild(itemDetail)
+    checklistInput.appendChild(checklistinputitem)
+    return checklistInput
+}
 
 var createTaskInputDom = function() {
 
@@ -136,20 +147,11 @@ var createTaskInputDom = function() {
     
     var plus =  createDiv("plus", "+>")
     // plus.onclick = ()=>{}
-    var titleInput = createInput("titleInput", 80, "Title")
+    var titleInput = createInput("titleInput", 20, "Title")
     var descriptionInput = createTextArea("descriptionInput", 200, "short description" )
     var duedateInput = createDateInput("duedateInput")
     var checklistInput = createDiv("checklistInput")
 
-    var addItemToChecklist = function(checklistInput){
-        var checklistinputitem = createDiv("checklistinputitem")
-        var newTick = createDiv("tick2")
-        var itemDetail = createInput("detail2", 100, "add task")
-        checklistinputitem.appendChild(newTick)
-        checklistinputitem.appendChild(itemDetail)
-        checklistInput.appendChild(checklistinputitem)
-        return checklistInput
-    }
     checklistInput = addItemToChecklist(checklistInput)
 
     var saveTask = createDiv("saveTask", "&#8629;")
@@ -183,4 +185,4 @@ var createUserInput = function(){
 
 
 
-export {createTaskDom, addTaskToList, createProjectDom, createExpandedTaskDom, createProjInputDom, createTaskInputDom, createUserInput}
+export {createTaskDom, addTaskToList, createProjectDom, createExpandedTaskDom, createProjInputDom, createTaskInputDom, createUserInput, addItemToChecklist}

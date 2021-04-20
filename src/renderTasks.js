@@ -1,5 +1,5 @@
 import { Session, ToDoProject, ToDoList, Checklist} from "./todoManipulation"
-import { createTaskDom, addTaskToList, createProjectDom, createExpandedTaskDom, createProjInputDom, createTaskInputDom, createUserInput } from './todoDom'
+import { createTaskDom, addTaskToList, createProjectDom, createExpandedTaskDom, createProjInputDom, createTaskInputDom, createUserInput, addItemToChecklist } from './todoDom'
 
 var completeFunction = function () {
     var elem = document.getElementById(this.parentNode.id).childNodes[0]
@@ -107,7 +107,9 @@ var expandTask = function (coor) {
         var saveTaskAgain = function(form){
             var checkListItems = []
             form[4].childNodes.forEach((checkListItem)=>{
-                checkListItems.push(checkListItem.childNodes[1].value)
+                var fetchedValue = checkListItem.childNodes[1].value
+                if (fetchedValue != "")
+                    checkListItems.push(fetchedValue)
                 // console.log(checkListItem.childNodes[1].value)
             })
             var newCreatedTask = ToDoList(form[1].value, form[2].value, form[3].value, Checklist(checkListItems))
@@ -138,11 +140,13 @@ var expandTask = function (coor) {
         taskInput.childNodes[1].value = prevTask.title
         taskInput.childNodes[2].value = prevTask.description
         taskInput.childNodes[3].value = prevTask.dueDate
+        taskInput.childNodes[4].firstChild.remove()
+
         for (let index = 0; index < prevTask.checkList.tasks.length; index++) {
             const checklistName = prevTask.checkList.tasks[index];
             // const checklistStatus = prevTask.checkList.taskStatus[index];
-            taskInput.childNodes[4].firstElementChild.lastElementChild.value = checklistName
-            // console.log(checklistStatus)
+            addItemToChecklist(taskInput.childNodes[4], checklistName)
+            // console.log(taskInput.childNodes[4])
             
         }
 
@@ -270,7 +274,10 @@ var renderProjects = function (number) {
         var saveTask = function(form){
             var checkListItems = []
             form[4].childNodes.forEach((checkListItem)=>{
-                checkListItems.push(checkListItem.childNodes[1].value)
+                var fetchedValue = checkListItem.childNodes[1].value
+                console.log(fetchedValue)
+                if (fetchedValue != "")
+                    checkListItems.push(fetchedValue)
                 // console.log(checkListItem.childNodes[1].value)
             })
             var newCreatedTask = ToDoList(form[1].value, form[2].value, form[3].value, Checklist(checkListItems))

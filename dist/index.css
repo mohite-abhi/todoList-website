@@ -1,6 +1,11 @@
+*{
+    font-family: 'Work Sans', sans-serif;
+    /* border-radius: 2%; */
+}
+
 #page{
     display: grid;
-    grid-template-columns: 25% 25% 45% 5%;
+    grid-template-columns: 25% 25% 48% 2%;
     grid-template-rows: auto;
     grid-template-areas: 
       "header header header header"
@@ -14,35 +19,47 @@
 
 #header{
     display: grid;
-    grid-template-columns: 20% 60% 20%;
+    grid-template-columns: 10% 10% 60% 20%;
     grid-template-rows: auto;
-    grid-template-areas: 
-    "symbol sitename username";
+    grid-template-areas:
+        "symbol . sitename username";
     grid-area: header;
     height: 8vh;
     margin: 1vh;
-    background-color: chartreuse;
-    
+    background-color: #dbf7e7;
+    border-radius: 9px;
 }
 
 #logo{
     grid-area: symbol;
     justify-self: center;
     /* height: max-content; */
-    background-color: darkcyan;
+    /* background-color: darkcyan; */
+    align-self: center;
+    
+}
+
+#logo img{
+    
+    border-radius: 10px;
+    width: 100%;
+    max-height: auto;
+    /* background-color:indianred; */
 }
 
 #sitename{
+    color: #7dbfc1;
     grid-area: sitename;
     /* height: max-content; */
-    background-color: darkcyan;
+    font-size: 4vh;
     justify-self: center;
+    /*! align-items: center; */
 }
 
 
 
 #username{
-    /* justify-self: center; */
+    justify-self: center;
     display: grid;
     grid-template-columns: 90% 10%;
     grid-template-rows: auto;
@@ -50,23 +67,31 @@
     "nme ok";
     align-self: center;
     grid-area: username;
-    height: 3vh;
+    height: 4vh;
     margin: 2px;
-    background-color: darkcyan;
+    background-color: #c6e1e1;
     text-align:center;
+    font-size: 2.5vh;
+    border-radius: 9px;
+    padding: 5px;
 }
 
-#username .name{
+.username .name{
+    justify-self: self-start;
+    font-size: 1.8vh;
+    /* height: 20px; */
     grid-area: nme;
 }
 
 #username .ok{
+    justify-self: center;
     grid-area: ok;
+    font-size: 3.5vh;
 }
 
 #footer{
     grid-area: footer;
-    background-color: chartreuse;
+    background-color: #dbf7e7;
     margin: 1vh;
     height: 8vh;
 
@@ -161,6 +186,8 @@
     margin: 1vh;
     height: 75vh;
     background-color: blanchedalmond;
+    border-radius: 7px;
+    padding: 2px;
 }
 
 #tasks #button{
@@ -193,7 +220,7 @@
 
 .taskItem{
     display: grid;
-    grid-template-columns: 5% 20% 55% 15% 5%;
+    grid-template-columns: 5% 30% 45% 15% 5%;
     grid-template-rows: auto;
     grid-template-areas: 
       "tick title description duedate delete";
@@ -255,7 +282,7 @@
 .detailedTaskItem{
     display: grid;
     grid-template-columns: 5% 10% 55% 15% 15%;
-    grid-template-rows: 10% 25% 60%;
+    grid-template-rows: 15% 25% 60%;
     /* row-gap: 1%;
     column-gap: 1%; */
     grid-template-areas: 
@@ -304,7 +331,7 @@
 .detailedTaskItem .duedateInput{
     grid-area: duedate;
     /* height: fit-content; */
-    /* font-size: 3vh; */
+    font-size: 2.5vh;
     background-color: dimgray;
     margin: 2px;
     /* text-align: center; */
@@ -313,7 +340,7 @@
 .detailedTaskItem .titleInput{
     grid-area: title;
     /* height: fit-content; */
-    /* font-size: 3vh; */
+    font-size: 2.5vh;
     background-color: dimgray;
     margin: 2px;
     /* text-align: center; */
@@ -322,9 +349,10 @@
 .detailedTaskItem .descriptionInput{
     grid-area: description;
     /* height: fit-content; */
-    /* font-size: 3vh; */
+    font-size: 2.5vh;
     background-color: dimgray;
     margin: 2px;
+    /* overflow-y: scroll; */
     /* text-align: center; */
 }
 
@@ -358,6 +386,7 @@
 
 .checklistinputitem .detail2 {
     margin: 3px;
+    font-size: 2.5vh;
     grid-area: detail;
     background-color: darkcyan;
 }
@@ -398,6 +427,7 @@
     /* font-size: 3vh; */
     background-color: dimgray;
     margin: 2px;
+    overflow-y: scroll;
     /* text-align: center; */
 }
 
