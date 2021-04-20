@@ -204,7 +204,7 @@ var renderProjects = function (number) {
         var projElems = document.getElementsByClassName("name")
         for (let index = 0; index < projElems.length; index++) {
             const element = projElems[index];
-            element.style.backgroundColor = (index == n)?"blue": "brown"
+            element.style.backgroundColor = (index == n)?"#7474ff": "#ffe4e4"
             
         }
     }

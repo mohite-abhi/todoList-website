@@ -54,6 +54,8 @@
     font-size: 4vh;
     justify-self: center;
     /*! align-items: center; */
+    text-align: center;
+    padding: 10px;
 }
 
 
@@ -106,9 +108,10 @@
       "list list";
 
     grid-area: project;
-    background-color:blueviolet;
+    background-color:#fff;
     height: 75vh;
     margin: 1vh;
+    border-radius: 4px;
 }
 
 #project #projButton{
@@ -116,24 +119,31 @@
     height: fit-content;
     margin: 2px;
     font-size: 3vh;
-    background-color: dimgray;
+    background-color: #81ffdc;
     text-align: center;
+    margin: 0;
+    border-radius: 7px;
 }
 
 #project #head{
     grid-area: head;
     height: max-content;
-    background-color: darkgreen;
+    background-color: #baffba;
     margin: 2px;
     text-align: center;
     font-size: 3vh;
+    border-radius: 6px;
+    margin: 0px;
+    padding: 0px;
 }
 
 #project #list{
     grid-area: list;
-    background-color: darkgreen;
+    background-color: #d8ffd8;
     margin: 2px;
     overflow-y: scroll;
+    border-radius: 4px;
+    scrollbar-width: none;
 }
 
 .projectItem{
@@ -143,20 +153,26 @@
     grid-template-areas: 
       "name del";
     font-size: 3vh;
-    background-color:darkred;
+    background-color:#fac3ff;
     margin: 5px 1px;
     /* height: max-content; */
+    padding: 1px;
+    border-radius: 6px;
 }
 
 
 .projectItem .name{
     grid-area: name;
     background-color:darkslategray;
+    border-radius: 4px;
 }
 
 .projectItem .del{
     grid-area: del;
-    background-color: rgb(98, 206, 98);
+    background-color: rgb(251, 233, 199);
+    margin: 0;
+    text-align: center;
+    border-radius: 4px;
 }
 
 
@@ -185,7 +201,7 @@
     grid-area: tasks;
     margin: 1vh;
     height: 75vh;
-    background-color: blanchedalmond;
+    background-color: #e2cdf0;
     border-radius: 7px;
     padding: 2px;
 }
@@ -196,25 +212,29 @@
     height: fit-content;
     margin: 2px;
     font-size: 3vh;
-    background-color: dimgray;
+    background-color: #b5b8e8;
     text-align: center;
+    align-self: center;
+    border-radius: 14px;
 }
 
 #tasks #head{
     grid-area: head;
     height: max-content;
-    background-color: darkgreen;
+    background-color: #f9eaff;
     margin: 2px;
     text-align: center;
     font-size: 3vh;
     align-self: center;
+    border-radius: 5px;
 }
 
 #tasks #taskList{
     grid-area: taskList;
-    background-color: rgb(0, 60, 100);
+    background-color: rgb(241, 250, 255);
     margin: 2px;
     overflow-y: scroll;
+    border-radius: 9px;
 }
 
 
@@ -225,18 +245,22 @@
     grid-template-areas: 
       "tick title description duedate delete";
     font-size: 3vh;
-    background-color:rgb(0, 139, 23);
+    background-color:rgb(189, 240, 231);
     font-size: 2.5vh +1 vw;
     margin: 5px 1px;
     /* height: max-content; */
+    border-radius: 8px;
 }
 
 .taskItem .tick{
     grid-area: tick;
     /* height: fit-content; */
     margin: 2px;
-    background-color: dimgray;
+    background-color: #69696900;
     text-align: center;
+    justify-self: center;
+    align-self: center;
+    border-radius: 34px;
 }
 
 .taskItem .title{
@@ -244,8 +268,9 @@
     /* height: fit-content; */
     margin: 2px;
     /* font-size: 3vh; */
-    background-color: dimgray;
+    background-color: #f2efd3;
     text-align: center;
+    border-radius: 7px;
 }
 
 .taskItem .description{
@@ -254,9 +279,10 @@
     min-height: 0;
     margin: 2px;
     /* font-size: 3vh; */
-    background-color: dimgray;
+    background-color: #f1f2d6;
     text-align: center;
     overflow: hidden;
+    border-radius: 8px;
 }
 
 .taskItem .duedate{
@@ -264,8 +290,9 @@
     /* height: fit-content; */
     margin: 2px;
     /* font-size: 3vh; */
-    background-color: dimgray;
+    background-color: #f7ecdd;
     text-align: center;
+    border-radius: 4px;
 }
 
 .taskItem .delete{
@@ -273,8 +300,9 @@
     /* height: fit-content; */
     margin: 2px;
     /* font-size: 3vh; */
-    background-color: dimgray;
+    background-color: #d3f0eb;
     text-align: center;
+    border-radius: 19px;
 }
 
 
