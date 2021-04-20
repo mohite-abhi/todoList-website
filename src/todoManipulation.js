@@ -26,7 +26,7 @@ var Checklist = function (taskList = [], taskStatusList = null) {
 
 }
 
-var ToDoList = function (title, description, dueDate, priority, checkList, isComplete = false) {
+var ToDoList = function (title, description, dueDate, checkList, isComplete = false, priority = 1) {
     var task = {};
     task.title = title;
     task.description = description;
@@ -50,7 +50,7 @@ var ToDoProject = function (projName, listOfToDoList = []) {
 var User = function (userName = "anonymous") {
     var user = {}
     user.name = userName;
-    user.projects = [new ToDoProject("default", [ToDoList("Getting started", "have fun", JSON.stringify(new Date()).slice(1,11), 1, Checklist(["item 1", "item 2"])), ToDoList("Again getting started", "have fun again", JSON.stringify(new Date()).slice(1,11), 1, Checklist(["item 3", "item 4"]))]), new ToDoProject("default2", [ToDoList("Getting started2", "have fun2", JSON.stringify(new Date()).slice(1,11), 1, Checklist(["item 12", "item 22"])), ToDoList("Again getting started2", "have fun again2", JSON.stringify(new Date()).slice(1,11), 1, Checklist(["item 32", "item 42"]))])];
+    user.projects = [new ToDoProject("default", [ToDoList("Getting started", "have fun", JSON.stringify(new Date()).slice(1,11), Checklist(["item 1", "item 2"])), ToDoList("Again getting started", "have fun again", JSON.stringify(new Date()).slice(1,11), Checklist(["item 3", "item 4"]))]), new ToDoProject("default2", [ToDoList("Getting started2", "have fun2", JSON.stringify(new Date()).slice(1,11), Checklist(["item 12", "item 22"])), ToDoList("Again getting started2", "have fun again2", JSON.stringify(new Date()).slice(1,11), Checklist(["item 32", "item 42"]))])];
     user.createNewProject = function (projName) {
         tempProj = ToDoProject(projName);
         user.projects.push(tempProj);
@@ -81,7 +81,7 @@ var Session = (function () {
                 var tempProject = new ToDoProject(i.name)
                 i.toDoLists.forEach((j) => {
                     // console.log(j)
-                    tempProject.addToProject(new ToDoList(j.title, j.description, j.dueDate, j.priority, new Checklist(j.checkList.tasks, j.checkList.taskStatus), j.isComplete))
+                    tempProject.addToProject(new ToDoList(j.title, j.description, j.dueDate, new Checklist(j.checkList.tasks, j.checkList.taskStatus), j.isComplete))
                 })
                 userObject.projects.push(tempProject);
             })
@@ -95,4 +95,4 @@ var Session = (function () {
 })()
 
 
-export { Session, ToDoProject }
+export { Session, ToDoProject, Checklist, ToDoList }

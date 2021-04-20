@@ -6,11 +6,29 @@ var createDiv= function(className, innerValue = null){
     return div
 }
 
-var createInput = function(className, maxLen) {
+var createInput = function(className, maxLen, place = "") {
     var inp = document.createElement('input')
     inp.className = className
     inp.autofocus = true
     inp.maxLength = maxLen
+    inp.placeholder = place
+    return inp
+}
+
+var createTextArea = function(className, maxLen, place = "") {
+    var inp = document.createElement('textarea')
+    inp.className = className
+    inp.autofocus = true
+    inp.maxLength = maxLen
+    inp.placeholder = place
+    return inp
+}
+
+var createDateInput = function(className) {
+    var inp = document.createElement('input')
+    inp.className = className
+    inp.type = "date"
+    inp.min = JSON.stringify(new Date()).slice(1,11)
     return inp
 }
 
@@ -108,4 +126,47 @@ var createProjInputDom = function() {
 }
 
 
-export {createTaskDom, addTaskToList, createProjectDom, createExpandedTaskDom, createProjInputDom}
+
+var createTaskInputDom = function() {
+
+    var detailedTaskInput = createDiv("detailedTaskItem")
+    
+    var plus =  createDiv("plus", "+>")
+    // plus.onclick = ()=>{}
+    var titleInput = createInput("titleInput", 80, "Title")
+    var descriptionInput = createTextArea("descriptionInput", 200, "short description" )
+    var duedateInput = createDateInput("duedateInput")
+    var checklistInput = createDiv("checklistInput")
+    var addItemToChecklist = function(checklistInput){
+        var checklistinputitem = createDiv("checklistinputitem")
+        var newTick = createDiv("tick2")
+        var itemDetail = createInput("detail2", 100, "add task")
+        checklistinputitem.appendChild(newTick)
+        checklistinputitem.appendChild(itemDetail)
+        checklistInput.appendChild(checklistinputitem)
+        return checklistInput
+    }
+    checklistInput = addItemToChecklist(checklistInput)
+
+    var saveTask = createDiv("saveTask", "&#8629;")
+
+    detailedTaskInput.appendChild(plus)
+    detailedTaskInput.appendChild(titleInput)
+    detailedTaskInput.appendChild(descriptionInput)
+    detailedTaskInput.appendChild(duedateInput)
+    detailedTaskInput.appendChild(checklistInput)
+    detailedTaskInput.appendChild(saveTask)
+    
+    plus.onclick = (elem)=>{
+        // addItemToChecklist(elem.srcElement.parentNode.childNodes)
+        addItemToChecklist(elem.srcElement.parentNode.childNodes[4])
+    }
+
+    return detailedTaskInput
+
+    // var titleInput = createInput("titleInput", 80, "Title")
+}
+
+
+
+export {createTaskDom, addTaskToList, createProjectDom, createExpandedTaskDom, createProjInputDom, createTaskInputDom}

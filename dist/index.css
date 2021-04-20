@@ -25,17 +25,19 @@
     
 }
 
-/* #logo{
+#logo{
     grid-area: symbol;
-    height: max-content;
+    justify-self: center;
+    /* height: max-content; */
     background-color: darkcyan;
 }
 
 #sitename{
     grid-area: sitename;
-    height: max-content;
+    /* height: max-content; */
     background-color: darkcyan;
-} */
+    justify-self: center;
+}
 
 
 
@@ -246,13 +248,98 @@
     grid-template-areas: 
       "tick title title duedate duedate"
       ". description description description ."
-      ". checklist checklist checklist .";
+      "plus checklist checklist checklist save";
     font-size: 3vh;
     background-color:rgb(139, 130, 0);
     margin: 5px 1px;
     /* height: 70%; */
     height: 50%;;
 }
+
+.detailedTaskItem .saveTask{
+    grid-area: save;
+    /* height: fit-content; */
+    /* font-size: 3vh; */
+    background-color: dimgray;
+    margin: 2px;
+    align-self: center;
+    text-align: center;
+    /* text-align: center; */
+}
+
+.detailedTaskItem .plus{
+    grid-area: plus;
+    /* height: fit-content; */
+    /* font-size: 3vh; */
+    background-color: dimgray;
+    margin: 2px;
+    align-self: center;
+    /* text-align: center; */
+}
+
+.detailedTaskItem .duedateInput{
+    grid-area: duedate;
+    /* height: fit-content; */
+    /* font-size: 3vh; */
+    background-color: dimgray;
+    margin: 2px;
+    /* text-align: center; */
+}
+
+.detailedTaskItem .titleInput{
+    grid-area: title;
+    /* height: fit-content; */
+    /* font-size: 3vh; */
+    background-color: dimgray;
+    margin: 2px;
+    /* text-align: center; */
+}
+
+.detailedTaskItem .descriptionInput{
+    grid-area: description;
+    /* height: fit-content; */
+    /* font-size: 3vh; */
+    background-color: dimgray;
+    margin: 2px;
+    /* text-align: center; */
+}
+
+
+.detailedTaskItem .checklistInput{
+    grid-area: checklist;
+    /* height: fit-content; */
+    font-size: 3vh;
+    background-color: dimgray;
+    margin: 2px;
+    overflow-y: scroll;
+    /* text-align: center; */
+}
+
+
+.checklistinputitem{
+    display: grid;
+    grid-template-columns: 5% 95%;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "tick1 detail";
+    background-color: blueviolet;
+}
+
+.checklistinputitem .tick2 {
+    grid-area: tick1;
+    background-color: rgb(30, 48, 80);
+    margin: 3px;
+    font-size: 2.5vh;
+}
+
+.checklistinputitem .detail2 {
+    margin: 3px;
+    grid-area: detail;
+    background-color: darkcyan;
+}
+
+
+
 
 .detailedTaskItem .tick{
     grid-area: tick;
