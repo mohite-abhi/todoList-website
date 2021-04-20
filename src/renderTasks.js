@@ -1,5 +1,5 @@
-import { Session } from "./todoManipulation"
-import { createTaskDom, addTaskToList, createProjectDom, createExpandedTaskDom } from './todoDom'
+import { Session, ToDoProject } from "./todoManipulation"
+import { createTaskDom, addTaskToList, createProjectDom, createExpandedTaskDom, createProjInputDom } from './todoDom'
 
 var completeFunction = function () {
     var elem = document.getElementById(this.parentNode.id).childNodes[0]
@@ -89,13 +89,23 @@ var expandTask = function (coor) {
 
 
 
-var renderProjects = function () {
+var renderProjects = function (number) {
     var projects = Session.user.projects;
     var i =0
     
+    var highlight = (n) => {
+        var projElems = document.getElementsByClassName("name")
+        for (let index = 0; index < projElems.length; index++) {
+            const element = projElems[index];
+            element.style.backgroundColor = (index == n)?"blue": "brown"
+            
+        }
+    }
     
     var openProject = (ele) =>{
         var projNo = JSON.parse(ele.srcElement.parentNode.id);
+        // ele.srcElement.style.backgroundColor = "blue"
+        highlight(projNo)
         // console.log(ele)
         var taskArea = document.getElementById("taskList")
         taskArea.innerHTML = '';
@@ -114,6 +124,41 @@ var renderProjects = function () {
         // document.getElementById(this.parentNode.id).remove()
         // Session.pushUpdate()
     }
+    
+
+
+    //add button
+    document.getElementById("projButton").onclick = ()=>{
+        // console.log(this)
+        var listCover =  document.getElementById("list")
+        var projList = document.getElementsByClassName("projectItem")
+        // console.log(projList[0].childNodes[0].className != "projInput")
+
+
+        var saveProject = function(ele){
+            var newProj = ToDoProject(ele.srcElement.parentNode.childNodes[0].value)
+            // console.log(newProj)
+            Session.user.projects.push(newProj)
+            document.getElementById("list").innerHTML = ''
+            document.getElementById("taskList").innerHTML = ''
+            renderProjects(0)
+            Session.pushUpdate()
+            // console.log(Session.user.projects)
+        }
+
+
+        if (projList[0].childNodes[0].className != "projInput"){
+            var projInp = createProjInputDom();
+            // console.log(projList[0])
+            // console.log(projList.childNodes[0])
+            // console.log(listCover)
+            projInp.childNodes[1].onclick = saveProject
+            listCover.insertBefore(projInp, projList[0])
+        }
+
+    }
+
+
 
     projects.forEach(element => {
         var projectHtml = createProjectDom(element.name);
@@ -123,13 +168,14 @@ var renderProjects = function () {
         projectHtml.childNodes[1].onclick = deleteProject
         // console.log(projectHtml.onclick)
     });
+    highlight(number)
+    renderTasks(number);
 }
 
 
 var renderPage = function () {
     Session.initiatePage()
-    renderTasks(0);
-    renderProjects();
+    renderProjects(0);
 }
 
 export { renderPage }

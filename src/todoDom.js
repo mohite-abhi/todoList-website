@@ -6,6 +6,14 @@ var createDiv= function(className, innerValue = null){
     return div
 }
 
+var createInput = function(className, maxLen) {
+    var inp = document.createElement('input')
+    inp.className = className
+    inp.autofocus = true
+    inp.maxLength = maxLen
+    return inp
+}
+
 var addTaskToList = function(taskHtml){
     var taskArea =  document.getElementById("taskList")
     taskArea.appendChild(taskHtml);
@@ -90,6 +98,14 @@ var createExpandedTaskDom = function(todo){
 }
 
 
+var createProjInputDom = function() {
+    var inp = createInput("projInput", 20)
+    var save = createDiv("projSave", "&#8629;")
+    var item = createDiv("projectItem")
+    item.appendChild(inp)
+    item.appendChild(save)
+    return item
+}
 
 
-export {createTaskDom, addTaskToList, createProjectDom, createExpandedTaskDom}
+export {createTaskDom, addTaskToList, createProjectDom, createExpandedTaskDom, createProjInputDom}

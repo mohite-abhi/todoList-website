@@ -71,7 +71,7 @@
     margin: 1vh;
 }
 
-#project #button{
+#project #projButton{
     grid-area: button;
     height: fit-content;
     margin: 2px;
@@ -98,7 +98,7 @@
 
 .projectItem{
     display: grid;
-    grid-template-columns: 95% 5%;
+    grid-template-columns: 92% 8%;
     grid-template-rows: auto;
     grid-template-areas: 
       "name del";
@@ -107,6 +107,7 @@
     margin: 5px 1px;
     /* height: max-content; */
 }
+
 
 .projectItem .name{
     grid-area: name;
@@ -117,6 +118,20 @@
     grid-area: del;
     background-color: rgb(98, 206, 98);
 }
+
+
+.projectItem .projInput{
+    grid-area: name;
+    background-color:darkslategray;
+    font-size: 2.5vh;
+}
+
+.projectItem .projSave{
+    grid-area: del;
+    background-color: rgb(98, 206, 98);
+}
+
+
 
 
 #tasks{
