@@ -1,6 +1,44 @@
 import { Session } from "./todoManipulation"
 import { createTaskDom, addTaskToList, addProjectToList, createExpandedTaskDom } from './todoDom'
 
+var completeFunction = function () {
+    var elem = document.getElementById(this.parentNode.id).childNodes[0]
+    var coor = JSON.parse(this.parentNode.id)
+    if (Session.user.projects[coor[0]].toDoLists[coor[1]].isComplete == false) {
+        elem.innerHTML = "&#10003;"
+        Session.user.projects[coor[0]].toDoLists[coor[1]].isComplete = true
+    }
+    else {
+        elem.innerHTML = "&#9634;"
+        Session.user.projects[coor[0]].toDoLists[coor[1]].isComplete = false
+        // console.log("why here")
+    }
+    Session.pushUpdate()
+
+    // console.log(this.parentNode.id)
+    // elem.onclick = completeFunction
+}
+
+
+
+var checkListCompleteFun = function () {
+    var elem = document.getElementById(this.id).childNodes[0]
+    var coor = JSON.parse(this.id)
+    // console.log(elem.innerHTML)
+    if (Session.user.projects[coor[0]].toDoLists[coor[1]].checkList.taskStatus[coor[2]] == false) {
+        elem.innerHTML = "&#10003;"
+        Session.user.projects[coor[0]].toDoLists[coor[1]].checkList.taskStatus[coor[2]] = true
+    }
+    else {
+        elem.innerHTML = "&#9634;"
+        Session.user.projects[coor[0]].toDoLists[coor[1]].checkList.taskStatus[coor[2]] = false
+    }
+    Session.pushUpdate()
+
+    // elem.onclick = checkListCompleteFun
+}
+
+
 var renderTasks = function (i) {
 
     var project = Session.user.projects[i]
@@ -16,23 +54,6 @@ var renderTasks = function (i) {
         document.getElementById(this.parentNode.id).remove()
     }
 
-    var completeFunction = function () {
-        var elem = document.getElementById(this.parentNode.id).childNodes[0]
-        var coor = JSON.parse(this.parentNode.id)
-        if (Session.user.projects[coor[0]].toDoLists[coor[1]].isComplete == false) {
-            elem.innerHTML = "&#10003;"
-            Session.user.projects[coor[0]].toDoLists[coor[1]].isComplete = true
-        }
-        else {
-            elem.innerHTML = "&#9634;"
-            Session.user.projects[coor[0]].toDoLists[coor[1]].isComplete = false
-            // console.log("why here")
-        }
-        Session.pushUpdate()
-
-        // console.log(this.parentNode.id)
-        // elem.onclick = completeFunction
-    }
 
     if (project != undefined)
         project.toDoLists.forEach(tasks => {
@@ -55,12 +76,19 @@ var expandTask = function (coor) {
     var taskArea = document.getElementById("taskList")
     taskArea.innerHTML = '';
     renderTasks(coor[0])
+
     var old = document.getElementById(JSON.stringify(coor))
     var expandedTaskHtml = createExpandedTaskDom(Session.user.projects[coor[0]].toDoLists[coor[1]])
+    expandedTaskHtml.id = old.id
+    expandedTaskHtml.childNodes[0].onclick = completeFunction;
+
+    var k = 0
+    expandedTaskHtml.childNodes[4].childNodes.forEach((elem)=>{
+        elem.id = JSON.stringify([coor[0], coor[1], k++])
+        elem.onclick = checkListCompleteFun;
+
+    })
     old.parentNode.replaceChild(expandedTaskHtml, old)
-    // console.log(old)
-    // console.log(i);
-    // console.log(Session.user.projects[coor[0]].toDoLists[coor[1]]);
 }
 
 
@@ -73,7 +101,7 @@ var renderProjects = function () {
 
 
 var renderPage = function () {
-    // Session.initiatePage()
+    Session.initiatePage()
     renderTasks(0);
     renderProjects();
 }

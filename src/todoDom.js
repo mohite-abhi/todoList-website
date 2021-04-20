@@ -36,14 +36,41 @@ var addProjectToList = function(nme){
 }
 
 
+var createChecklistDom = function(checklist){
+    var checklistDom = createDiv("checklist")
+    for (let index = 0; index < checklist.tasks.length; index++) {
+        // console.log(checklist)
+        var tick = createDiv("tick")
+        tick.innerHTML = ((checklist.taskStatus[index] == 0) ? "&#9634;" : "&#10003;")
+        var detail = createDiv("detail")
+        detail.innerHTML = checklist.tasks[index];;
+        var item = createDiv("checklistitem")
+        // tick.onclick = () =>{console.log(this)}
+        item.appendChild(tick)
+        item.appendChild(detail)
+        checklistDom.appendChild(item)
+        // const element = checklist.tasks[index];
+    }
+    // console.log(checklistDom)
+    return checklistDom;
+    // checklist.tasks.forEach(element => {
+    //     var tick = createDiv("tick")
+    //     var detail = createDiv("detail")
+    //     detail.innerHTML = element;
+    //     var item = createDiv("checklistitem")
+    //     console.log(element)
+    // });
+}
+
+
+
 var createExpandedTaskDom = function(todo){
     var symbol = ((todo.isComplete == true) ? "&#10003;" : "&#9634;")
     var tick = createDiv("tick", symbol)
     var title = createDiv("title", todo.title)
     var description = createDiv("description", todo.description)
     var dueDate = createDiv("duedate", todo.dueDate.slice(0,10))
-    var delete1 = createDiv("checklist", "something")
-
+    var delete1 = createChecklistDom(todo.checkList)
     var taskItem = createDiv("detailedTaskItem")
     taskItem.appendChild(tick)
     taskItem.appendChild(title)
