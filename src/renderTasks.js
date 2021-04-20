@@ -46,8 +46,11 @@ var renderTasks = function (i) {
         var sibling = taskArea.firstElementChild
         var indexing = 0
         while(sibling != null){
-            console.log(sibling)
-            sibling.id = JSON.stringify([i, indexing++])
+            // console.log(sibling)
+            // console.log(i)
+            if (sibling.firstChild.firstChild.className != "plus"){
+                sibling.id = JSON.stringify([i, indexing++])
+            }
             sibling = sibling.nextElementSibling
         }
     }
@@ -98,13 +101,87 @@ var expandTask = function (coor) {
 
     var old = document.getElementById(JSON.stringify(coor))
 
+    var manageEdit = (elem) =>{
+
+
+        var saveTaskAgain = function(form){
+            var checkListItems = []
+            form[4].childNodes.forEach((checkListItem)=>{
+                checkListItems.push(checkListItem.childNodes[1].value)
+                // console.log(checkListItem.childNodes[1].value)
+            })
+            var newCreatedTask = ToDoList(form[1].value, form[2].value, form[3].value, Checklist(checkListItems))
+
+
+            // console.log(form[1].value)
+            // console.log(form[2].value)
+            // console.log(form[3].value)
+            // console.log(newCreatedTask)
+            // console.log(Session.user.projects)
+            // console.log(number)
+            Session.user.projects[coor[0]].toDoLists.splice(coor[1],1)
+            Session.user.projects[coor[0]].toDoLists.push(newCreatedTask)
+
+            // document.getElementById("list").innerHTML = ''
+            document.getElementById("taskList").innerHTML = ''
+            // renderProjects(coor[0])
+            renderTasks(coor[0])
+            Session.pushUpdate()
+            // renderPage()
+        }
+
+
+        var prevTaskCoor = JSON.parse(elem.srcElement.parentNode.id)
+        var taskInput = createTaskInputDom()
+        var prevTask = Session.user.projects[prevTaskCoor[0]].toDoLists[prevTaskCoor[1]]
+        // var prevTask = Session.user.projects[prevTaskCoor[0]].tasks[prevTaskCoor[1]]
+        taskInput.childNodes[1].value = prevTask.title
+        taskInput.childNodes[2].value = prevTask.description
+        taskInput.childNodes[3].value = prevTask.dueDate
+        for (let index = 0; index < prevTask.checkList.tasks.length; index++) {
+            const checklistName = prevTask.checkList.tasks[index];
+            // const checklistStatus = prevTask.checkList.taskStatus[index];
+            taskInput.childNodes[4].firstElementChild.lastElementChild.value = checklistName
+            // console.log(checklistStatus)
+            
+        }
+
+        // prevTask.checkList.forEach((checkListItem)=>{
+        //     // checkListItems.push(checkListItem.childNodes[1].value)
+        //     console.log(checkListItem)
+        // })
+        // console.log(taskInput)
+        // console.log(prevTask)
+
+        // var taskArea = document.getElementById("taskList")
+        var taskArea =  document.getElementById("taskList")
+        // var taskInput = createTaskInputDom()
+        
+        taskInput.childNodes[5].onclick = (elem)=>{
+            var form = elem.srcElement.parentNode.childNodes;
+            saveTaskAgain(form);
+        }
+
+        
+            var metaList = prevTaskCoor
+            // taskArea.innerHTML = '';
+            // console.log(metaList[0])
+            // renderTasks(metaList[0])
+            // var firstBlock = taskArea.firstElementChild
+            taskArea.replaceChild(taskInput, document.getElementById(JSON.stringify(coor)))
+        
+
+    }
+
     var expandedTaskHtml = createExpandedTaskDom(Session.user.projects[coor[0]].toDoLists[coor[1]])
     expandedTaskHtml.id = old.id
     expandedTaskHtml.childNodes[0].onclick = completeFunction;
+    expandedTaskHtml.lastElementChild.onclick = manageEdit
 
     //working on checklist
     var k = 0
     expandedTaskHtml.childNodes[4].childNodes.forEach((elem)=>{
+        // console.log(coor[0])
         elem.id = JSON.stringify([coor[0], coor[1], k++])
         elem.onclick = checkListCompleteFun;
 
@@ -131,12 +208,12 @@ var renderProjects = function (number) {
     var openProject = (ele) =>{
         var projNo = JSON.parse(ele.srcElement.parentNode.id);
         // ele.srcElement.style.backgroundColor = "blue"
-        highlight(projNo)
+        highlight(projNo[0])
         // console.log(ele)
         var taskArea = document.getElementById("taskList")
         taskArea.innerHTML = '';
         document.getElementById("list").innerHTML = ''
-        renderProjects(projNo)
+        renderProjects(projNo[0])
     }
 
     var deleteProject = function () {
@@ -184,12 +261,6 @@ var renderProjects = function (number) {
 
         }
 
-        // console.log(projList[0].childNodes[0].className != "projInput")
-
-
-
-
-
     }
 
 
@@ -222,7 +293,7 @@ var renderProjects = function (number) {
         }
         
         var taskArea = document.getElementById("taskList")
-        var taskCover =  document.getElementById("taskList")
+        // var taskArea = document.getElementById("taskList")
         var taskInput = createTaskInputDom()
         
         taskInput.childNodes[5].onclick = (elem)=>{
@@ -231,15 +302,16 @@ var renderProjects = function (number) {
         }
 
         if (taskArea.childElementCount == 0){
-            taskCover.appendChild(taskInput)
+            taskArea.appendChild(taskInput)
         }
         else{
             var metaList = JSON.parse(taskArea.lastElementChild.id)
             taskArea.innerHTML = '';
+            // console.log(metaList[0])
             renderTasks(metaList[0])
-            var firstBlock = taskCover.firstElementChild
+            var firstBlock = taskArea.firstElementChild
             if (firstBlock.childNodes[0].className == "tick"){
-                taskCover.insertBefore(taskInput, firstBlock)
+                taskArea.insertBefore(taskInput, firstBlock)
             }
         }
 
@@ -259,6 +331,7 @@ var renderProjects = function (number) {
         // console.log(projectHtml.onclick)
     });
     highlight(number)
+    // console.log(number)
     renderTasks(number);
 }
 

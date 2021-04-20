@@ -107,11 +107,14 @@ var createExpandedTaskDom = function(todo){
     var dueDate = createDiv("duedate", todo.dueDate.slice(0,10))
     var delete1 = createChecklistDom(todo.checkList)
     var taskItem = createDiv("detailedTaskItem")
+    var editButton = createDiv("editButton", "edit")
+    
     taskItem.appendChild(tick)
     taskItem.appendChild(title)
     taskItem.appendChild(description)
     taskItem.appendChild(dueDate)
     taskItem.appendChild(delete1)
+    taskItem.appendChild(editButton)
     return taskItem
 }
 
@@ -137,6 +140,7 @@ var createTaskInputDom = function() {
     var descriptionInput = createTextArea("descriptionInput", 200, "short description" )
     var duedateInput = createDateInput("duedateInput")
     var checklistInput = createDiv("checklistInput")
+
     var addItemToChecklist = function(checklistInput){
         var checklistinputitem = createDiv("checklistinputitem")
         var newTick = createDiv("tick2")

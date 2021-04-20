@@ -281,7 +281,7 @@
 }
 
 .detailedTaskItem .editButton{
-    grid-area: edit;
+    grid-area: save;
     /* height: fit-content; */
     /* font-size: 3vh; */
     background-color: dimgray;
