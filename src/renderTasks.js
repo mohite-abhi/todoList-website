@@ -287,7 +287,8 @@ var manageUser = function(){
     var inp = createUserInput()
     inp.id = "username"
     inp.childNodes[1].onclick = ()=>{
-        Session.user.name = inp.childNodes[0].value
+        var givenName = inp.childNodes[0].value
+        Session.user.name = givenName?givenName:"anonymous"
         Session.pushUpdate()
         location.reload()
     }

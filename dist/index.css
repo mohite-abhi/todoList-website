@@ -5,6 +5,7 @@
     background-color: #fefcf5;
 }
 
+
 #page{
     display: grid;
     grid-template-columns: 25% 25% 48% 2%;
@@ -213,7 +214,9 @@
     margin: 2px;
     padding-left: 10px;
 }
-
+textarea:focus{
+    outline: none;
+}
 input:focus{
     outline:none;
     /* outline-color: chartreuse; */
@@ -224,6 +227,7 @@ input:focus{
     background-color: rgb(255, 244, 155);
     border-radius: 19px;
     margin: 1px;
+    cursor: pointer;
 }
 
 
@@ -612,6 +616,8 @@ input:focus{
     align-self: center;
 }
 
+
+
 .checklistitem .detail {
     margin: 3px;
     grid-area: detail;
@@ -624,3 +630,4 @@ input:focus{
     border-color: #fff2ae;
     border-width: 2px;
 }
+
