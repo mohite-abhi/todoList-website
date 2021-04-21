@@ -9,7 +9,7 @@ var createDiv= function(className, innerValue = null){
 var createInput = function(className, maxLen, place = "") {
     var inp = document.createElement('input')
     inp.className = className
-    inp.autofocus = true
+    inp.autofocus = "true"
     inp.maxLength = maxLen
     inp.placeholder = place
     return inp
@@ -38,14 +38,12 @@ var addTaskToList = function(taskHtml){
 }
 
 var createTaskDom = function(iscmplt, ttl, dsc, dte){
-    // console.log(iscmplt)
     var symbol = ((iscmplt == true) ? "&#10003;" : "&#9634;")
     var tick = createDiv("tick", symbol)
-    // var tick = createDiv("tick", "&#9634;")
     var title = createDiv("title", ttl)
     var description = createDiv("description", dsc)
     var dueDate = createDiv("duedate", dte)
-    var delete1 = createDiv("delete", "X")
+    var delete1 = createDiv("delete", "x")
     var taskItem = createDiv("taskItem")
     taskItem.appendChild(tick)
     taskItem.appendChild(title)
@@ -62,11 +60,8 @@ var createProjectDom = function(nme){
     del.innerHTML = "x"
     name.innerHTML = nme
     var projRow = createDiv("projectItem")
-    // name.onclick = ()=>{console.log(this)}
-    // document.getElementById("list").appendChild(name);
     projRow.appendChild(name)
     projRow.appendChild(del)
-    // console.log(projRow)
     return projRow;
 }
 
@@ -74,27 +69,17 @@ var createProjectDom = function(nme){
 var createChecklistDom = function(checklist){
     var checklistDom = createDiv("checklist")
     for (let index = 0; index < checklist.tasks.length; index++) {
-        // console.log(checklist)
         var tick = createDiv("tick")
         tick.innerHTML = ((checklist.taskStatus[index] == 0) ? "&#9634;" : "&#10003;")
         var detail = createDiv("detail")
         detail.innerHTML = checklist.tasks[index];;
         var item = createDiv("checklistitem")
-        // tick.onclick = () =>{console.log(this)}
         item.appendChild(tick)
         item.appendChild(detail)
         checklistDom.appendChild(item)
-        // const element = checklist.tasks[index];
     }
-    // console.log(checklistDom)
     return checklistDom;
-    // checklist.tasks.forEach(element => {
-    //     var tick = createDiv("tick")
-    //     var detail = createDiv("detail")
-    //     detail.innerHTML = element;
-    //     var item = createDiv("checklistitem")
-    //     console.log(element)
-    // });
+ 
 }
 
 
@@ -146,7 +131,6 @@ var createTaskInputDom = function() {
     var detailedTaskInput = createDiv("detailedTaskItem")
     
     var plus =  createDiv("plus", "+>")
-    // plus.onclick = ()=>{}
     var titleInput = createInput("titleInput", 20, "Title")
     var descriptionInput = createTextArea("descriptionInput", 200, "short description" )
     var duedateInput = createDateInput("duedateInput")
@@ -175,8 +159,8 @@ var createTaskInputDom = function() {
 
 
 var createUserInput = function(){
-    var inp = createInput("name", 20, "enter name")
-    var ok = createDiv("ok", "&#10009;")
+    var inp = createInput("uname", 20, "enter name")
+    var ok = createDiv("ok", "&#8629;")
     var usnm = createDiv("username")
     usnm.appendChild(inp)
     usnm.appendChild(ok)

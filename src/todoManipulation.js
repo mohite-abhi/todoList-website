@@ -28,9 +28,9 @@ var Checklist = function (taskList = [], taskStatusList = null) {
 
 var ToDoList = function (title, description, dueDate, checkList, isComplete = false, priority = 1) {
     var task = {};
-    task.title = title;
-    task.description = description;
-    task.dueDate = dueDate;
+    task.title = title?title:"no title";
+    task.description = description?description:"no description";
+    task.dueDate = dueDate?dueDate : JSON.stringify(new Date()).slice(1,11);
     task.priority = priority;
     task.checkList = checkList;
     task.isComplete = isComplete;
@@ -69,10 +69,8 @@ var Session = (function () {
         if (localStorage.getItem('user') == null) {
             session.user = new User();
             session.pushUpdate();
-            // console.log(session.user)
         }
         else {
-            // console.log(localStorage.user)
             var userData = JSON.parse(localStorage.user);
             var userObject = new User(userData.name)
             userObject.removeProject(0)
@@ -80,7 +78,6 @@ var Session = (function () {
             userData.projects.forEach((i) => {
                 var tempProject = new ToDoProject(i.name)
                 i.toDoLists.forEach((j) => {
-                    // console.log(j)
                     tempProject.addToProject(new ToDoList(j.title, j.description, j.dueDate, new Checklist(j.checkList.tasks, j.checkList.taskStatus), j.isComplete))
                 })
                 userObject.projects.push(tempProject);
