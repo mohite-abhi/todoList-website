@@ -32,10 +32,7 @@ var createDateInput = function(className) {
     return inp
 }
 
-var addTaskToList = function(taskHtml){
-    var taskArea =  document.getElementById("taskList")
-    taskArea.appendChild(taskHtml);
-}
+
 
 var createTaskDom = function(iscmplt, ttl, dsc, dte){
     var symbol = ((iscmplt == true) ? "&#10003;" : "&#9634;")
@@ -169,4 +166,4 @@ var createUserInput = function(){
 
 
 
-export {createTaskDom, addTaskToList, createProjectDom, createExpandedTaskDom, createProjInputDom, createTaskInputDom, createUserInput, addItemToChecklist}
+export {createTaskDom, createProjectDom, createExpandedTaskDom, createProjInputDom, createTaskInputDom, createUserInput, addItemToChecklist}

@@ -1,3 +1,6 @@
+//classes for checklist, todolist, user and a single object for Session 
+//are created in this module
+
 var Checklist = function (taskList = [], taskStatusList = null) {
     var list = {};
     list.tasks = JSON.parse(JSON.stringify(taskList));
@@ -61,28 +64,36 @@ var User = function (userName = "anonymous") {
 
 var Session = (function () {
     var session = {}
+
+    //update the user data stored in localStorage
     session.pushUpdate = function () {
         localStorage.setItem('user', JSON.stringify(this.user));
     }
     session.user = ""
+
+    //setting up session's user by fetching user identification data stored in localStored
     session.initiatePage = function () {
+        //if no data of user set up new default user
         if (localStorage.getItem('user') == null) {
             session.user = new User();
             session.pushUpdate();
         }
+        //else set up user and his projects based on his stored data
+        //readding methods which were not stored in localStorage
         else {
             var userData = JSON.parse(localStorage.user);
-            var userObject = new User(userData.name)
-            userObject.removeProject(0)
-            userObject.removeProject(0)
+            
+            var usableUserObject = new User(userData.name)
+            usableUserObject.removeProject(0)
+            usableUserObject.removeProject(0)
             userData.projects.forEach((i) => {
                 var tempProject = new ToDoProject(i.name)
                 i.toDoLists.forEach((j) => {
                     tempProject.addToProject(new ToDoList(j.title, j.description, j.dueDate, new Checklist(j.checkList.tasks, j.checkList.taskStatus), j.isComplete))
                 })
-                userObject.projects.push(tempProject);
+                usableUserObject.projects.push(tempProject);
             })
-            session.user = userObject;
+            session.user = usableUserObject;
             session.pushUpdate();
 
         }
