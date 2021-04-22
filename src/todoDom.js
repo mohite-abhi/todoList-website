@@ -9,7 +9,7 @@ var createDiv= function(className, innerValue = null){
 var createInput = function(className, maxLen, place = "") {
     var inp = document.createElement('input')
     inp.className = className
-    inp.autofocus = "true"
+    // inp.autofocus = "true"
     inp.maxLength = maxLen
     inp.placeholder = place
     return inp
@@ -18,7 +18,7 @@ var createInput = function(className, maxLen, place = "") {
 var createTextArea = function(className, maxLen, place = "") {
     var inp = document.createElement('textarea')
     inp.className = className
-    inp.autofocus = true
+    // inp.autofocus = true
     inp.maxLength = maxLen
     inp.placeholder = place
     return inp
@@ -123,7 +123,7 @@ var addItemToChecklist = function(checklistInput, value = null){
     return checklistInput
 }
 
-var createTaskInputDom = function() {
+var createTaskEditorDom = function() {
 
     var detailedTaskInput = createDiv("detailedTaskItem")
     
@@ -166,4 +166,4 @@ var createUserInput = function(){
 
 
 
-export {createTaskDom, createProjectDom, createExpandedTaskDom, createProjInputDom, createTaskInputDom, createUserInput, addItemToChecklist}
+export {createTaskDom, createProjectDom, createExpandedTaskDom, createProjInputDom, createTaskEditorDom, createUserInput, addItemToChecklist}

@@ -72,7 +72,7 @@ var Session = (function () {
     session.user = ""
 
     //setting up session's user by fetching user identification data stored in localStored
-    session.initiatePage = function () {
+    session.setUpUser = function () {
         //if no data of user set up new default user
         if (localStorage.getItem('user') == null) {
             session.user = new User();
