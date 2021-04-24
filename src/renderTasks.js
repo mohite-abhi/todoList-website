@@ -54,7 +54,7 @@ var TaskRenderer = function (projectNo) {
                         checkListItems.push(fetchedValue)
                 })
 
-                var newCreatedTask = ToDoList(form[1].value, form[2].value, form[3].value, Checklist(checkListItems))
+                var newCreatedTask = new ToDoList(form[1].value, form[2].value, form[3].value, new Checklist(checkListItems))
                 Session.user.projects[addr[0]].toDoLists.splice(addr[1], 1)
                 Session.user.projects[addr[0]].toDoLists.push(newCreatedTask)
                 thisRenderer.renderTasks(addr[0])
@@ -76,7 +76,8 @@ var TaskRenderer = function (projectNo) {
 
             var taskArea = document.getElementById("taskList")
 
-            taskEditor.childNodes[5].onclick = (elem) => {
+            taskEditor.childNodes[5].onclick = function(elem) {
+                // console.log(this)
                 var form = elem.srcElement.parentNode.childNodes;
                 saveTaskAgain(form);
             }
@@ -173,7 +174,6 @@ var TaskRenderer = function (projectNo) {
 
 
 var ProjectRenderer = function (projNo) {
-
     var thisRenderer = {}
     thisRenderer.projectNo = projNo
     thisRenderer.myTaskRenderer = TaskRenderer(thisRenderer.projectNo)
@@ -190,7 +190,9 @@ var ProjectRenderer = function (projNo) {
     }
 
     thisRenderer.openProject = (ele) => {
+        // console.log(projNo)
         var idProjNo = JSON.parse(ele.srcElement.parentNode.id);
+        // console.log(idProjNo)
         thisRenderer.highlight(idProjNo[0])
         thisRenderer.renderProjectList(idProjNo[0])
     }
@@ -209,7 +211,7 @@ var ProjectRenderer = function (projNo) {
         document.getElementById("projButton").onclick = () => {
             var saveProject = function (ele) {
                 var givenProjectName = ele.srcElement.parentNode.childNodes[0].value
-                var newProj = ToDoProject(givenProjectName?givenProjectName:"new project")
+                var newProj = new ToDoProject(givenProjectName?givenProjectName:"new project")
                 Session.user.projects.push(newProj)
                 thisRenderer.renderProjectList(Session.user.projects.length-1)
                 Session.pushUpdate()
@@ -237,11 +239,12 @@ var ProjectRenderer = function (projNo) {
 
 
 
-    thisRenderer.renderTaskCreator = function () {
+    thisRenderer.renderTaskCreator = function (projNo = thisRenderer.projectNo) {
 
         //add working of add task button
-        document.getElementById("button").onclick = () => {
+        document.getElementById("button").onclick = function(e) {
 
+            // console.log(thisRenderer.projectNo)
             var saveTask = function (form) {
                 var checkListItems = []
                 form[4].childNodes.forEach((checkListItem) => {
@@ -249,10 +252,11 @@ var ProjectRenderer = function (projNo) {
                     if (fetchedValue != "")
                         checkListItems.push(fetchedValue)
                 })
+                // console.log(e)
 
 
-                var newCreatedTask = ToDoList(form[1].value, form[2].value, form[3].value, Checklist(checkListItems))
-                Session.user.projects[thisRenderer.projectNo].toDoLists.push(newCreatedTask)
+                var newCreatedTask = new ToDoList(form[1].value, form[2].value, form[3].value, new Checklist(checkListItems))
+                Session.user.projects[projNo].toDoLists.push(newCreatedTask)
                 thisRenderer.myTaskRenderer.renderTasks()
                 Session.pushUpdate()
             }
@@ -260,8 +264,9 @@ var ProjectRenderer = function (projNo) {
             var taskArea = document.getElementById("taskList")
             var taskEditor = createTaskEditorDom()
 
-            taskEditor.childNodes[5].onclick = (elem) => {
+            taskEditor.childNodes[5].onclick = function(elem) {
                 var form = elem.srcElement.parentNode.childNodes;
+                console.log(elem.srcElement.parentNode)
                 saveTask(form);
             }
 
@@ -286,7 +291,7 @@ var ProjectRenderer = function (projNo) {
         //clear already present project items
         document.getElementById("list").innerHTML = ''
 
-        // console.log(thisRenderer.projectNo)
+        // console.log(idProjNo)
         var i = 0
         thisRenderer.projects.forEach(element => {
             var projectHtml = createProjectDom(element.name);
