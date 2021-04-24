@@ -10,10 +10,7 @@ var TaskRenderer = function (projectNo) {
 
     thisRenderer.markTaskAsDone = function (e) {
         var thisElem = e.target
-        // console.log(thisElem.innerHTML)
-        // var elem = document.getElementById(thisElem.parentNode.id).childNodes[0]
         var addr = JSON.parse(thisElem.parentNode.id)
-        // console.log(this)
         if (Session.user.projects[addr[0]].toDoLists[addr[1]].isComplete == false) {
             thisElem.innerHTML = "&#10003;"
             Session.user.projects[addr[0]].toDoLists[addr[1]].isComplete = true
@@ -28,9 +25,7 @@ var TaskRenderer = function (projectNo) {
 
 
     thisRenderer.markChecklistItem = function (e) {
-        // var elem = document.getElementById(this.id).childNodes[0]
         var thisElem = e.target
-        // console.log(thisElem)
         var addr = JSON.parse(this.id)
         if (Session.user.projects[addr[0]].toDoLists[addr[1]].checkList.taskStatus[addr[2]] == false) {
             thisElem.innerHTML = "&#10003;"
@@ -63,8 +58,6 @@ var TaskRenderer = function (projectNo) {
                 var newCreatedTask = new ToDoList(form[1].value, form[2].value, form[3].value, new Checklist(checkListItems))
 
                 Session.user.projects[addr[0]].toDoLists[addr[1]] = newCreatedTask
-                // Session.user.projects[addr[0]].toDoLists.splice(addr[1], 1)
-                // Session.user.projects[addr[0]].toDoLists.push(newCreatedTask)
                 thisRenderer.renderTasks()
                 Session.pushUpdate()
             }
@@ -75,7 +68,6 @@ var TaskRenderer = function (projectNo) {
             taskEditor.childNodes[1].value = prevTask.title
             taskEditor.childNodes[2].value = prevTask.description
             taskEditor.childNodes[3].value = prevTask.dueDate
-            // console.log(taskEditor.childNodes[4].firstChild)
             taskEditor.childNodes[4].firstChild.remove()    //default extra add task input is removed
 
             //adding items to checklist
@@ -87,15 +79,11 @@ var TaskRenderer = function (projectNo) {
             var taskArea = document.getElementById("taskList")
 
             taskEditor.childNodes[5].onclick = function(elem) {
-                // console.log(this)
                 var form = elem.target.parentNode.childNodes;
-                // console.log(form)
-                // console.log(elem.target.parentNode.childNodes)
                 saveTaskAgain(form);
             }
 
 
-            // var metaList = prevTaskAddr
             taskArea.replaceChild(taskEditor, document.getElementById(JSON.stringify(addr)))
             document.getElementsByClassName("titleInput")[0].focus()
 
@@ -147,7 +135,6 @@ var TaskRenderer = function (projectNo) {
         //clean any already rendered lists
         document.getElementById("taskList").innerHTML = ''
         var projectData = Session.user.projects[thisRenderer.projectNo]
-        // console.log(projectData != undefined)
         var taskNo = 0;
         if (projectData != undefined) {
             var expandParentTask = function (e) {
@@ -198,10 +185,8 @@ var ProjectRenderer = function (projNo) {
     }
 
     thisRenderer.highlight = () => {
-        // console.log("hello")
         var n = thisRenderer.projectNo
         var projElems = document.getElementsByClassName("name")
-        // console.log(n)
         for (let index = 0; index < projElems.length; index++) {
             const element = projElems[index];
             element.style.borderColor = (index == n) ? "rgb(255, 216, 100)" : "rgb(255, 216, 100,0)"
@@ -209,10 +194,8 @@ var ProjectRenderer = function (projNo) {
     }
 
     thisRenderer.openProject = (ele) => {
-        // console.log(projNo)
         var idProjNo = JSON.parse(ele.target.parentNode.id);
         thisRenderer.setProjectNo(idProjNo)
-        // console.log(idProjNo)
         thisRenderer.highlight()
         thisRenderer.renderProjectList()
     }
@@ -234,10 +217,7 @@ var ProjectRenderer = function (projNo) {
                 var newProj = new ToDoProject(givenProjectName?givenProjectName:"new project")
                 Session.user.projects.push(newProj)
                 thisRenderer.setProjectNo(thisRenderer.projectNo)
-                // thisRenderer.projectNo = Session.user.projects.length - 1
-                // thisRenderer.myTaskRenderer.projectNo = thisRenderer.projectNo
                 thisRenderer.renderProjectList()
-                // thisRenderer.renderProjectList(Session.user.projects.length-1)
                 Session.pushUpdate()
             }
 
@@ -267,13 +247,11 @@ var ProjectRenderer = function (projNo) {
 
         //add working of add task button
         document.getElementById("button").onclick = function() {
-            // console.log("hello")
             if (document.getElementById("list").childElementCount == 0){
                 alert("please create a project to add task in")
                 return
             }
 
-            // console.log(thisRenderer.projectNo)
             var saveTask = function (form) {
 
 
@@ -283,12 +261,10 @@ var ProjectRenderer = function (projNo) {
                     if (fetchedValue != "")
                         checkListItems.push(fetchedValue)
                 })
-                // console.log(e)
 
 
                 var newCreatedTask = new ToDoList(form[1].value, form[2].value, form[3].value, new Checklist(checkListItems))
                 Session.user.projects[thisRenderer.projectNo].toDoLists.unshift(newCreatedTask)
-                // thisRenderer.myTaskRenderer.projectNo = thisRenderer.projectNo
                 thisRenderer.myTaskRenderer.renderTasks()
                 Session.pushUpdate()
             }
@@ -298,7 +274,6 @@ var ProjectRenderer = function (projNo) {
 
             taskEditor.childNodes[5].onclick = function(elem) {
                 var form = elem.target.parentNode.childNodes;
-                // console.log(elem.target.parentNode)
                 saveTask(form);
             }
 
@@ -307,7 +282,6 @@ var ProjectRenderer = function (projNo) {
             }
 
             else {
-                // var metaList = JSON.parse(taskArea.lastElementChild.id)
                 thisRenderer.myTaskRenderer.renderTasks()
                 var firstBlock = taskArea.firstElementChild
                 
@@ -324,7 +298,6 @@ var ProjectRenderer = function (projNo) {
         //clear already present project items
         document.getElementById("list").innerHTML = ''
 
-        // console.log(idProjNo)
         var i = 0
         thisRenderer.projects.forEach(element => {
             var projectHtml = createProjectDom(element.name);
