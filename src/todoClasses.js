@@ -28,6 +28,8 @@ Checklist.prototype.show = function () {
     }
 }
 
+
+
 var ToDoList = function (title, description, dueDate, checkList, isComplete = false, priority = 1) {
     // var task = {};
     this.title = title?title:"no title";
@@ -50,6 +52,9 @@ ToDoProject.prototype.addToProject = function (toDoList) { this.toDoLists.push(t
 ToDoProject.prototype.removeFromProject = function (listNo) { this.toDoLists.splice(listNo, 1); }
 
 
+
+
+
 var User = function (userName = "anonymous") {
     // var user = {}
     this.name = userName;
@@ -64,6 +69,8 @@ User.prototype.createNewProject = function (projName) {
 User.prototype.removeProject = function (ind) { 
     this.projects.splice(ind, 1) 
 }
+
+
 
 var Session = (function () {
     var session = {}
