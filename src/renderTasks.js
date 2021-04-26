@@ -143,10 +143,15 @@ var TaskRenderer = function (projectNo) {
     document.getElementById("taskList").appendChild(taskHtml);
   };
 
+  thisRenderer.setMobileProjectName = function (projName) {
+    document.querySelector("#projName").innerHTML = projName;
+  };
+
   thisRenderer.renderTasks = function () {
     //clean any already rendered lists
     document.getElementById("taskList").innerHTML = "";
     var projectData = Session.user.projects[thisRenderer.projectNo];
+    thisRenderer.setMobileProjectName(projectData.name);
     var taskNo = 0;
     if (projectData != undefined) {
       var expandParentTask = function (e) {
@@ -346,10 +351,18 @@ var renderTodoList = function () {
   myProjectRenderer.renderProjectList();
 };
 
+var mobileResponsiveTasks = function () {
+  let sideBar = document.querySelector("#project");
+  document.querySelector("#projSwitch").onclick = () => {
+    sideBar.style.right = sideBar.style.right == "0vw" ? "-75vw" : "0vw";
+  };
+};
+
 var renderPage = function () {
   Session.setUpUser();
   renderUserName();
   renderTodoList();
+  mobileResponsiveTasks();
 };
 
 export { renderPage };
