@@ -5,6 +5,11 @@
   background-color: #fefcf5;
 }
 
+
+::placeholder { /* Most modern browsers support this now. */
+  color:    rgba(0, 0, 0, 0.288);
+}
+
 #footer a {
   background-color: #f5f5dc00;
 }
@@ -290,6 +295,13 @@ input:focus {
   padding: 2px;
 }
 
+
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+
 .taskItem {
   display: grid;
   grid-template-columns: 5% 30% 45% 15% 5%;
@@ -447,7 +459,7 @@ input:focus {
   /* text-align: center; */
   /* height: fit-content; */
   margin: 2px;
-  /* font-size: 2.5vh; */
+  font-size: 2.5vh;
   background-color: #fff;
   border-width: 1px;
   border-radius: 10px;
@@ -459,7 +471,7 @@ input:focus {
 .detailedTaskItem .descriptionInput {
   grid-area: description;
   /* height: fit-content; */
-  /* font-size: 2.5vh; */
+  font-size: 2.5vh;
   margin: 2px;
   /* overflow-y: scroll; */
   /* text-align: center; */
@@ -475,7 +487,6 @@ input:focus {
 .detailedTaskItem .checklistInput {
   grid-area: checklist;
   /* height: fit-content; */
-  /* font-size: 3vh; */
   background-color: white;
   margin: 2px;
   overflow-y: scroll;
@@ -507,7 +518,7 @@ input:focus {
 
 .checklistinputitem .detail2 {
   margin: 3px;
-  /* font-size: 2.5vh; */
+  font-size: 2.5vh;
   grid-area: detail;
   background-color: white;
   border-style: solid;
@@ -622,6 +633,15 @@ input:focus {
   border-width: 2px;
 }
 
+
+
+/*----------------------------------------------------------mobile responsive----------------------------------------------------------*/
+
+
+
+
+
+
 @media only screen and (max-width: 1080px) {
   * {
     font-size: 1.8vh;
@@ -647,15 +667,20 @@ input:focus {
   }
 
   input {
-    font-size: 1.6vh;
+    font-size: 2.5vh;
   }
+
+  textarea {
+    font-size: 2.5vh;
+  }
+
 
   .detailedTaskItem {
     display: grid;
     grid-template-columns: 5% 10% 55% 15% 15%;
     grid-template-rows: 15% 25% 60%;
     row-gap: 1%;
-    column-gap: 1%;
+    /* column-gap: 1%; */
     grid-template-areas: "tick title title duedate duedate" ". description description description edit" "plus checklist checklist checklist save";
     /* font-size: 3vh; */
     background-color: rgb(255, 242, 174);
@@ -958,18 +983,47 @@ input:focus {
     align-self: center;
   }
 
-  /* .detailedTaskItem .duedateInput {
-    grid-area: duedate;
-    text-align: center;
-    height: fit-content;
-    margin: 2px;
-    background-color: #fff;
-    border-width: 1px;
-    border-radius: 10px;
-    padding: 0px;
-    border-color: #ffe99a;
-    border-style: solid;
-    cursor: pointer;
-    text-align: center;
-  } */
+  .detailedTaskItem .duedateInput {
+    font-size: 2vh;
+  }
+}
+
+
+div,
+input,
+textarea,
+button,
+select,
+a {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+
+.clickMeAnimation{
+  animation-name: clickMe;
+  animation-duration: 1600ms;
+}
+
+@keyframes clickMe{
+  0%{
+        box-shadow: #a69a83 1px 1px;
+            padding: 0px 12px;
+        
+  }
+  25%{
+        box-shadow: #a69a83 5px 5px;
+            padding: 0px 14px;
+  }
+  50%{
+        box-shadow: #a69a83 1px 1px;
+            padding: 0px 12px;
+  }
+  75%{
+        box-shadow: #a69a83 5px 5px;
+            padding: 0px 14px;
+  }
+  100%{
+        box-shadow: #a69a83 1px 1px;
+            padding: 0px 12px;
+  }
 }

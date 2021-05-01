@@ -151,7 +151,8 @@ var TaskRenderer = function (projectNo) {
     //clean any already rendered lists
     document.getElementById("taskList").innerHTML = "";
     var projectData = Session.user.projects[thisRenderer.projectNo];
-    thisRenderer.setMobileProjectName(projectData.name);
+    thisRenderer.setMobileProjectName(projectData?projectData.name: "no projects")
+    // thisRenderer.setMobileProjectName(projectData.name);
     var taskNo = 0;
     if (projectData != undefined) {
       var expandParentTask = function (e) {
@@ -366,3 +367,7 @@ var renderPage = function () {
 };
 
 export { renderPage };
+
+
+
+
